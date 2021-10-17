@@ -22,7 +22,9 @@ public class Communication : MonoBehaviour {
     }
 
     /*
-     Unicorn EEG powerband .NET API averaged values
+    Unicorn EEG powerband .NET API averaged values
+    1: delta channel 1
+    [...]
     57: delta channel 1-8 averaged
     58: theta channel 1-8 averaged
     59: alpha channel 1-8 averaged
@@ -43,8 +45,8 @@ public class Communication : MonoBehaviour {
             Array.Copy(receiveBufferByte, messageByte, numberOfBytesReceived);
             string message = Encoding.ASCII.GetString(messageByte);
             var split = message.Split(',');
-            _thetaAverage = float.Parse(split[58]);
-            _alphaAverage = float.Parse(split[59]);
+            _thetaAverage = float.Parse(split[58 - 1]); // get the theta averaged
+            _alphaAverage = float.Parse(split[59 - 1]); // get the alpha averaged
             Debug.Log(split.Length + " | " + _thetaAverage + " | " + _alphaAverage);
         }
     }
