@@ -18,6 +18,7 @@ public class Communication : MonoBehaviour {
     [Header("Frequency bands")]
     public float [] frequencyBandsAverages = new float[7];
     public float [] frequencyBandsBaselines = new float[7];
+    public float [] frequencyBandsDifferences = new float[7];
 
     public bool baselineWaitingTimeFinished = false;
     public int _baseLineCounter = 0;
@@ -52,7 +53,10 @@ public class Communication : MonoBehaviour {
                 var split = message.Split(',');
                 var counter = 0;
                 for (int i = 56; i < 63; i++) {
-                    if(baselineWaitingTimeFinished) frequencyBandsAverages[counter] = float.Parse(split[i]);
+                    if(baselineWaitingTimeFinished) {
+                        frequencyBandsAverages[counter] = float.Parse(split[i]);
+                        CalculateDifferenceToBaseline();
+                    }
                     else frequencyBandsBaselines[counter] += float.Parse(split[i]);
                     counter++;
                 }
@@ -80,6 +84,12 @@ public class Communication : MonoBehaviour {
     private void CalculateBaseline() {
         for (int i = 0; i < frequencyBandsBaselines.Length; i++) {
             frequencyBandsBaselines[i] = frequencyBandsBaselines[i] / _baseLineCounter;
+        }
+    }
+
+    private void CalculateDifferenceToBaseline() {
+        for (int i = 0; i < frequencyBandsDifferences.Length; i++) {
+            frequencyBandsDifferences[i] = Mathf.Abs(frequencyBandsBaselines[i] - frequencyBandsAverages[i]);
         }
     }
 
