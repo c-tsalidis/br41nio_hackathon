@@ -8,7 +8,7 @@ public class Communication : MonoBehaviour {
     private const int ListenPort = 1000;
     private IPEndPoint _groupEp;
     private Socket _socket;
-    public float [] frequencyBandsAverages = new float[8];
+    public float [] frequencyBandsAverages = new float[7];
 
     /*
     Unicorn EEG powerband .NET API averaged values
@@ -37,6 +37,7 @@ public class Communication : MonoBehaviour {
             var counter = 0;
             for (int i = 56; i < 63; i++) {
                 frequencyBandsAverages[counter] = float.Parse(split[i]);
+                counter++;
             }
             // _thetaAverage = float.Parse(split[58 - 1]); // get the theta averaged
             // _alphaAverage = float.Parse(split[59 - 1]); // get the alpha averaged
