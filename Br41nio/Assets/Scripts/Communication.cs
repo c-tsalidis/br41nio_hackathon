@@ -6,16 +6,16 @@ using System.Text;
 
 public class Communication : MonoBehaviour {
     private const int ListenPort = 1000;
-    private UdpClient _listener;
+   // private UdpClient _listener;
     private IPEndPoint _groupEp;
 
     private Socket socket;
-    private byte[] receiveBufferByte = new byte[1024];
-    private float[] receiveBufferFloat;
 
     private void Start() => StartListener();
 
     private void Update() {
+        byte[] receiveBufferByte = new byte[1024];
+        float[] receiveBufferFloat = new float[receiveBufferByte.Length / sizeof(float)];
         int numberOfBytesReceived = socket.Receive(receiveBufferByte);
         if (numberOfBytesReceived > 0) {
             //convert byte array to float array
@@ -48,16 +48,15 @@ public class Communication : MonoBehaviour {
     }
 
     private void StartListener() {
-        _listener = new UdpClient(ListenPort);
+        // _listener = new UdpClient(ListenPort);
         _groupEp = new IPEndPoint(IPAddress.Any, ListenPort);
-        _listener.Client.Blocking = false;
+        //_listener.Client.Blocking = false;
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp) {Blocking = false};
         socket.Bind(_groupEp);
-        receiveBufferFloat = new float[receiveBufferByte.Length / sizeof(float)];
     }
 
-    private void OnDisable() => _listener.Close();
-    private void OnDestroy() => _listener.Close();
+    //private void OnDisable() => _listener.Close();
+    //private void OnDestroy() => _listener.Close();
 
-    private void OnApplicationQuit() => _listener.Close();
+    //private void OnApplicationQuit() => _listener.Close();
 }
