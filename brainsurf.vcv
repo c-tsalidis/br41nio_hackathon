@@ -11,8 +11,8 @@
       "rightModuleId": 67,
       "data": {
         "audio": {
-          "driver": 5,
-          "deviceName": "Apple Inc.: Built-in Output",
+          "driver": 7,
+          "deviceName": "CA USBAudio ASIO Driver",
           "offset": 0,
           "maxChannels": 8,
           "sampleRate": 44100,
@@ -253,7 +253,7 @@
       "params": [
         {
           "id": 0,
-          "value": 0.999117255
+          "value": 1.06337333
         },
         {
           "id": 1,
@@ -269,15 +269,15 @@
         },
         {
           "id": 4,
-          "value": 1.0
+          "value": 0.986519277
         },
         {
           "id": 5,
-          "value": 0.988661289
+          "value": 0.986519039
         },
         {
           "id": 6,
-          "value": 0.969761789
+          "value": 0.975179851
         },
         {
           "id": 7,
@@ -425,7 +425,7 @@
         },
         {
           "id": 43,
-          "value": 0.995337963
+          "value": 0.810129464
         },
         {
           "id": 44,
@@ -561,13 +561,13 @@
         "groupedAuxReturnFeedbackProtection": 1,
         "ecoMode": 65535,
         "faders": [
-          0.999117255,
+          1.06337333,
           0.848809361,
           0.540505946,
           0.526646376,
-          1.0,
-          0.988661289,
-          0.969761789,
+          0.986519277,
+          0.986519039,
+          0.975179851,
           1.0,
           1.0,
           1.0
@@ -1477,7 +1477,7 @@
         "osc": {
           "IpAddress": "127.0.0.1",
           "TxPort": 7000,
-          "RxPort": 8108,
+          "RxPort": 6161,
           "Namespace": "",
           "AutoReconnectAtLoad": false,
           "Initialized": false
@@ -1595,7 +1595,7 @@
             "maxOSC": 127.0
           },
           {
-            "path": "",
+            "path": "/freqs",
             "dataType": 1,
             "convertVals": 0,
             "clipVals": 0,
@@ -4199,12 +4199,12 @@
         "hues": [
           0.0,
           0.333499998,
-          0.649999976
+          0.650000036
         ],
         "fillHues": [
           0.0,
           0.333499998,
-          0.649999976
+          0.650000036
         ],
         "fillOn": [
           0,
@@ -4244,7 +4244,7 @@
           ],
           [
             0.0,
-            0.100000262,
+            0.0999999046,
             1.0
           ]
         ],
@@ -4261,7 +4261,7 @@
           ],
           [
             0.0,
-            0.100000262,
+            0.0999999046,
             1.0
           ]
         ],
@@ -4344,7 +4344,7 @@
         },
         {
           "id": 14,
-          "value": 0.0919998959
+          "value": 0.0
         },
         {
           "id": 15,
@@ -6280,7 +6280,7 @@
         },
         {
           "id": 14,
-          "value": 0.0520000122
+          "value": 0.0
         },
         {
           "id": 15,
@@ -6709,7 +6709,7 @@
         },
         {
           "id": 5,
-          "value": 0.6639992
+          "value": 0.632499099
         },
         {
           "id": 6,
@@ -6745,7 +6745,7 @@
         },
         {
           "id": 14,
-          "value": 0.050999999
+          "value": 0.00150000001
         },
         {
           "id": 15,
@@ -7455,11 +7455,11 @@
       "params": [
         {
           "id": 0,
-          "value": -0.414000094
+          "value": -0.585999727
         },
         {
           "id": 1,
-          "value": 0.0
+          "value": 0.0144999465
         },
         {
           "id": 2,
@@ -7885,14 +7885,6 @@
       "outputId": 1,
       "inputModuleId": 100,
       "inputId": 7,
-      "color": "#0c8e15"
-    },
-    {
-      "id": 9905,
-      "outputModuleId": 112,
-      "outputId": 1,
-      "inputModuleId": 4174,
-      "inputId": 0,
       "color": "#0c8e15"
     },
     {
@@ -8326,6 +8318,14 @@
       "inputModuleId": 4167,
       "inputId": 1,
       "color": "#c91847"
+    },
+    {
+      "id": 9978,
+      "outputModuleId": 112,
+      "outputId": 5,
+      "inputModuleId": 4174,
+      "inputId": 0,
+      "color": "#0c8e15"
     }
   ]
 }

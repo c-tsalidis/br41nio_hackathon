@@ -26,6 +26,10 @@ public class Communication : MonoBehaviour {
     public bool baselineWaitingTimeFinished = false;
     public int _baseLineCounter = 0;
 
+    [Space]
+
+    [Header("OSC communication")]
+    [SerializeField] private OSC_Communication OSC_Communication;
     /*
     Unicorn EEG powerband .NET API averaged values
     1: delta channel 1
@@ -59,7 +63,9 @@ public class Communication : MonoBehaviour {
                     if(baselineWaitingTimeFinished) {
                         frequencyBandsAverages[counter] = float.Parse(split[i]);
                         // CalculateDifferenceToBaseline();
-                        print(GetMappedDifferences(0, 10));
+                        // print(GetMappedDifferences(0, 10));
+                        // possibly multiply by a certain ratio
+                        OSC_Communication.SendOSCMessage("/freqs", GetMappedDifferences(0, 100));
                     }
                     else frequencyBandsBaselines[counter] += float.Parse(split[i]);
                     counter++;
