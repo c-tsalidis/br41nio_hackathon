@@ -17,11 +17,10 @@ public class Communication : MonoBehaviour {
         float[] receiveBufferFloat = new float[receiveBufferByte.Length / sizeof(float)];
         int numberOfBytesReceived = socket.Receive(receiveBufferByte);
         if (numberOfBytesReceived > 0) {
-            //convert byte array to float array
-            for (int i = 0; i < numberOfBytesReceived / sizeof(float); i++) {
-                receiveBufferFloat[i] = BitConverter.ToSingle(receiveBufferByte, i * sizeof(float));
-                Debug.Log(receiveBufferFloat[i].ToString("n2"));
-            }
+            byte[] messageByte = new byte[numberOfBytesReceived];
+            Array.Copy(receiveBufferByte, messageByte, numberOfBytesReceived);
+            string message = System.Text.Encoding.ASCII.GetString(messageByte);
+            Debug.Log(message);
         }
     }
 
