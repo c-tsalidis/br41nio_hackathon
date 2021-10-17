@@ -20,7 +20,7 @@ public class Communication : MonoBehaviour {
     public float [] frequencyBandsBaselines = new float[7];
 
     public bool baselineWaitingTimeFinished = false;
-    private int _baseLineCounter = 0;
+    public int _baseLineCounter = 0;
 
     /*
     Unicorn EEG powerband .NET API averaged values
@@ -42,25 +42,27 @@ public class Communication : MonoBehaviour {
 
     private void Update() {
         // Check out the Unicorn UDP receiver --> https://github.com/unicorn-bi/Unicorn-Suite-Hybrid-Black/blob/master/Unicorn%20.NET%20API/UnicornUDP/UnicornUDPReceiver/Program.cs
-        byte[] receiveBufferByte = new byte[1024];
-        int numberOfBytesReceived = _socket.Receive(receiveBufferByte);
-        if (numberOfBytesReceived > 0) {
-            byte[] messageByte = new byte[numberOfBytesReceived];
-            Array.Copy(receiveBufferByte, messageByte, numberOfBytesReceived);
-            string message = Encoding.ASCII.GetString(messageByte);
-            var split = message.Split(',');
-            var frequencyBandsCounter = 0;
-            for (int i = 56; i < 63; i++) {
-                if(baselineWaitingTimeFinished) {
-                    frequencyBandsAverages[frequencyBandsCounter] = float.Parse(split[i]);
-                    frequencyBandsCounter++;
+        try {
+            byte[] receiveBufferByte = new byte[1024];
+            int numberOfBytesReceived = _socket.Receive(receiveBufferByte);
+            if (numberOfBytesReceived > 0) {
+                byte[] messageByte = new byte[numberOfBytesReceived];
+                Array.Copy(receiveBufferByte, messageByte, numberOfBytesReceived);
+                string message = Encoding.ASCII.GetString(messageByte);
+                var split = message.Split(',');
+                var counter = 0;
+                for (int i = 56; i < 63; i++) {
+                    if(baselineWaitingTimeFinished) frequencyBandsAverages[counter] = float.Parse(split[i]);
+                    else frequencyBandsBaselines[counter] += float.Parse(split[i]);
+                    counter++;
                 }
-                else {
-                    frequencyBandsBaselines[_baseLineCounter] += float.Parse(split[i]);
-                    _baseLineCounter++;
-                }
+                if(!baselineWaitingTimeFinished) _baseLineCounter++;
             }
         }
+        catch (Exception e) {
+            // Debug.Log(e);
+        }
+        
     }
 
     private void StartListener() {
