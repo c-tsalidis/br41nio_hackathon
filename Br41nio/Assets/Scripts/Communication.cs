@@ -7,30 +7,55 @@ using System.Text;
 public class Communication : MonoBehaviour {
     private const int ListenPort = 1000;
     private IPEndPoint _groupEp;
-    private Socket socket;
+    private Socket _socket;
+    private float _thetaAverage;
+    private float _alphaAverage;
+
+    public float ThetaAverage {
+        get => _thetaAverage;
+        set => _thetaAverage = value;
+    }
+
+    public float AlphaAverage {
+        get => _alphaAverage;
+        set => _alphaAverage = value;
+    }
+
+    /*
+     Unicorn EEG powerband .NET API averaged values
+    57: delta channel 1-8 averaged
+    58: theta channel 1-8 averaged
+    59: alpha channel 1-8 averaged
+    60: beta low channel 1-8 averaged
+    61: beta mid channel 1-8 averaged
+    62: beta high channel 1-8 averaged
+    63: gamma channel 1-8 averaged
+     */
 
     private void Start() => StartListener();
 
     private void Update() {
         // Check out the Unicorn UDP receiver --> https://github.com/unicorn-bi/Unicorn-Suite-Hybrid-Black/blob/master/Unicorn%20.NET%20API/UnicornUDP/UnicornUDPReceiver/Program.cs
         byte[] receiveBufferByte = new byte[1024];
-        float[] receiveBufferFloat = new float[receiveBufferByte.Length / sizeof(float)];
-        int numberOfBytesReceived = socket.Receive(receiveBufferByte);
+        int numberOfBytesReceived = _socket.Receive(receiveBufferByte);
         if (numberOfBytesReceived > 0) {
             byte[] messageByte = new byte[numberOfBytesReceived];
             Array.Copy(receiveBufferByte, messageByte, numberOfBytesReceived);
-            string message = System.Text.Encoding.ASCII.GetString(messageByte);
-            Debug.Log(message);
+            string message = Encoding.ASCII.GetString(messageByte);
+            var split = message.Split(',');
+            _thetaAverage = float.Parse(split[58]);
+            _alphaAverage = float.Parse(split[59]);
+            Debug.Log(split.Length + " | " + _thetaAverage + " | " + _alphaAverage);
         }
     }
 
     private void StartListener() {
         _groupEp = new IPEndPoint(IPAddress.Any, ListenPort);
-        socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp) {Blocking = false};
-        socket.Bind(_groupEp);
+        _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp) {Blocking = false};
+        _socket.Bind(_groupEp);
     }
 
-    private void OnDisable() => socket.Close();
-    private void OnDestroy() => socket.Close();
-    private void OnApplicationQuit() => socket.Close();
+    private void OnDisable() => _socket.Close();
+    private void OnDestroy() => _socket.Close();
+    private void OnApplicationQuit() => _socket.Close();
 }
