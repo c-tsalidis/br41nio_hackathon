@@ -12,6 +12,7 @@
       "data": {
         "audio": {
           "driver": 7,
+          "deviceName": "ASIO4ALL v2",
           "offset": 0,
           "maxChannels": 8,
           "sampleRate": 44100,
@@ -252,15 +253,15 @@
       "params": [
         {
           "id": 0,
-          "value": 1.06337333
+          "value": 1.12762916
         },
         {
           "id": 1,
-          "value": 0.761874676
+          "value": 1.03023827
         },
         {
           "id": 2,
-          "value": 0.540505946
+          "value": 0.850447059
         },
         {
           "id": 3,
@@ -424,7 +425,7 @@
         },
         {
           "id": 43,
-          "value": 0.810129464
+          "value": 1.03313577
         },
         {
           "id": 44,
@@ -560,9 +561,9 @@
         "groupedAuxReturnFeedbackProtection": 1,
         "ecoMode": 65535,
         "faders": [
-          1.06337333,
-          0.761874676,
-          0.540505946,
+          1.12762916,
+          1.03023827,
+          0.850447059,
           0.526646376,
           1.00163829,
           0.990298808,
@@ -1479,7 +1480,7 @@
           "RxPort": 6161,
           "Namespace": "",
           "AutoReconnectAtLoad": false,
-          "Initialized": true
+          "Initialized": false
         },
         "numCh": 8,
         "inputChannels": [

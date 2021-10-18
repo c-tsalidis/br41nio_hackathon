@@ -17,7 +17,7 @@ public class VisualManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnRibbon());
-        StartCoroutine(SpawnLight());
+        //StartCoroutine(SpawnLight());
     }
 
     // Update is called once per frame
@@ -35,6 +35,15 @@ public class VisualManager : MonoBehaviour
                 
         //    }// particle z pos > camera positem.Value
         //}
+    }
+
+    // neuronRate (0.2-1) , float directionalLightTemperature (), float spawnDistance (100-300), float cameraSpeed
+    public void SetParameters(float neuronRate, float directionalLightTemperature, float spawnDistance, float cameraSpeed)
+    {
+        spawnRateNeurons = neuronRate;
+        light.GetComponent<Light>().colorTemperature = directionalLightTemperature;
+        distanceToSpawn = spawnDistance;
+        speed = cameraSpeed;
     }
 
 
