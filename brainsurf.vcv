@@ -12,7 +12,6 @@
       "data": {
         "audio": {
           "driver": 7,
-          "deviceName": "CA USBAudio ASIO Driver",
           "offset": 0,
           "maxChannels": 8,
           "sampleRate": 44100,
@@ -413,7 +412,7 @@
         },
         {
           "id": 40,
-          "value": 0.0
+          "value": 1.0
         },
         {
           "id": 41,
@@ -7145,7 +7144,7 @@
       "params": [
         {
           "id": 0,
-          "value": 0.612999856
+          "value": 0.687999725
         },
         {
           "id": 1,
@@ -7249,7 +7248,7 @@
       "params": [
         {
           "id": 0,
-          "value": 0.571000159
+          "value": 0.690999925
         },
         {
           "id": 1,
@@ -7278,7 +7277,7 @@
       "params": [
         {
           "id": 0,
-          "value": 0.585999846
+          "value": 0.684999764
         },
         {
           "id": 1,

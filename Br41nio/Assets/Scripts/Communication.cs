@@ -12,10 +12,11 @@ public class Communication : MonoBehaviour {
     private const int ListenPort = 1000;
     private IPEndPoint _groupEp;
     private Socket _socket;
-    
+
     [Space]
-    
+
     [Header("Frequency bands")]
+    [SerializeField] private int waitingTimeForBaseline = 30;
     public float [] frequencyBandsAverages = new float[7];
     public float [] frequencyBandsBaselines = new float[7];
     public float [] mappedBaselines = new float[7];
@@ -65,7 +66,7 @@ public class Communication : MonoBehaviour {
                         // CalculateDifferenceToBaseline();
                         // print(GetMappedDifferences(0, 10));
                         // possibly multiply by a certain ratio
-                        OSC_Communication.SendOSCMessage("/freqs", GetMappedDifferences(0, 100));
+                        OSC_Communication.SendOSCMessage("/freqs", GetMappedDifferences(0, 10));
                     }
                     else frequencyBandsBaselines[counter] += float.Parse(split[i]);
                     counter++;
@@ -85,7 +86,7 @@ public class Communication : MonoBehaviour {
     }
 
     private IEnumerator GetValuesForBaseline() {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(waitingTimeForBaseline);
         CalculateBaseline();
         baselineWaitingTimeFinished = true;
     }
@@ -110,7 +111,7 @@ public class Communication : MonoBehaviour {
         }
         // map the current frequency band differences
         for (int i = 0; i < frequencyBandsAverages.Length; i++) {
-            mappedDifferences[i] = Mathf.Abs(mappedBaselines[i] - Map(frequencyBandsAverages[i], frequencyBandMinValue, frequencyBandMaxValue, minValue, maxValue)); // get average for baseline
+            mappedDifferences[i] = Mathf.Abs(mappedBaselines[i] - Map(frequencyBandsAverages[i], frequencyBandMinValue, frequencyBandMaxValue, minValue, maxValue)) * 100; // get average for baseline
         }
 
         return mappedDifferences;
